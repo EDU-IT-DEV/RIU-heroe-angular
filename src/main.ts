@@ -5,15 +5,11 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
-import { loadingInterceptor } from './app/interceptors/loading.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(),
     provideRouter(routes),
-    importProvidersFrom(BrowserAnimationsModule),
-    provideHttpClient(
-      withInterceptors([loadingInterceptor])
-    )
+    importProvidersFrom(BrowserAnimationsModule)
   ]
 }).catch(err => console.error(err));
