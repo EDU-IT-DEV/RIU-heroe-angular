@@ -5,7 +5,7 @@ import { Hero } from '../../models/hero.model';
 import { of } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HeroesListComponent', () => {
@@ -27,15 +27,13 @@ describe('HeroesListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HeroesListComponent,
-        RouterTestingModule,
-        BrowserAnimationsModule
-
+        BrowserAnimationsModule,
       ],
       providers: [
+        provideRouter([]), // Configura rutas simuladas
         { provide: HeroesService, useValue: mockHeroesService },
         { provide: MatDialog, useValue: mockDialog },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } } },
-
       ],
     }).compileComponents();
   });
@@ -101,7 +99,4 @@ describe('HeroesListComponent', () => {
     component.onPageChange({ pageIndex: 1, pageSize: 2, length: 3 } as any);
     expect(component.paginatedHeroes()).toEqual([heroesMock[2]]);
   });
-
-
-
 });

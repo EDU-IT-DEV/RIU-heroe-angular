@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { LoadingService } from './services/loading.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   let loadingServiceSpy: jasmine.SpyObj<LoadingService>;
@@ -11,8 +11,11 @@ describe('AppComponent', () => {
     const spy = jasmine.createSpyObj('LoadingService', ['loading']);
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent, MatProgressSpinnerModule, RouterTestingModule],
-      providers: [{ provide: LoadingService, useValue: spy }]
+      imports: [AppComponent, MatProgressSpinnerModule],
+      providers: [
+        provideRouter([]),
+        { provide: LoadingService, useValue: spy },
+      ],
     }).compileComponents();
 
     loadingServiceSpy = TestBed.inject(LoadingService) as jasmine.SpyObj<LoadingService>;

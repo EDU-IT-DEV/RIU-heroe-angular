@@ -3,8 +3,7 @@ import { HeroesService } from '../../services/heroes.service';
 import { Hero } from '../../models/hero.model';
 import { of, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeroesFormComponent } from './heroes-form.component';
 import { Location } from '@angular/common';
@@ -35,12 +34,9 @@ describe('HeroesFormComponent', () => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
 
     await TestBed.configureTestingModule({
-      imports: [
-        HeroesFormComponent,
-        RouterTestingModule,
-        BrowserAnimationsModule,
-      ],
+      imports: [HeroesFormComponent, BrowserAnimationsModule],
       providers: [
+        provideRouter([]),
         { provide: HeroesService, useValue: mockHeroesService },
         { provide: MatDialog, useValue: mockDialog },
         {
