@@ -3,7 +3,7 @@ import { HeroesListComponent } from './heroes-list.component';
 import { HeroesService } from '../../services/heroes.service';
 import { Hero } from '../../models/hero.model';
 import { of } from 'rxjs';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
