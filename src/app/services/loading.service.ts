@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class LoadingService {
-
-constructor() { }
-
+  loading = signal<boolean>(false);
+  setLoading(value: boolean) {
+    this.loading.set(value);
+  }
 }
