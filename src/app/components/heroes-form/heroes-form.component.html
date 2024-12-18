@@ -2,13 +2,14 @@
   <h2>{{ heroId ? 'Editar Héroe' : 'Añadir Héroe' }}</h2>
 
   <form [formGroup]="heroForm" class="hero-form">
-    <mat-form-field appearance="outline" class="form-field uppercase">
+    <mat-form-field appearance="outline" class="form-field">
       <mat-label>Nombre del Héroe</mat-label>
       <input
         matInput
         formControlName="name"
         placeholder="Escribe el nombre"
         required
+        appUppercase
       />
       <mat-error *ngIf="heroForm.get('name')?.hasError('required')">
         El nombre es obligatorio.

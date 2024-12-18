@@ -12,7 +12,7 @@ import { Hero } from '../../models/hero.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { HeroUppercasePipe } from '../../pipes/hero-uppercase.pipe';
+import { UppercaseDirective } from '../../directives/uppercase.directive';
 
 @Component({
   selector: 'app-heroes-form',
@@ -23,7 +23,7 @@ import { HeroUppercasePipe } from '../../pipes/hero-uppercase.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    HeroUppercasePipe,
+    UppercaseDirective,
   ],
   templateUrl: './heroes-form.component.html',
   styleUrls: ['./heroes-form.component.scss'],
@@ -62,6 +62,10 @@ export class HeroesFormComponent implements OnInit {
             ...hero,
             id: hero.id,
           });
+          const nameControl = this.heroForm.get('name');
+          if (nameControl?.value) {
+            nameControl.setValue((nameControl.value).toUpperCase());
+          }
         }
       });
     }

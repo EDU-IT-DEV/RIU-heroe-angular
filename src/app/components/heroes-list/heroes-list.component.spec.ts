@@ -30,7 +30,7 @@ describe('HeroesListComponent', () => {
         BrowserAnimationsModule,
       ],
       providers: [
-        provideRouter([]), // Configura rutas simuladas
+        provideRouter([]),
         { provide: HeroesService, useValue: mockHeroesService },
         { provide: MatDialog, useValue: mockDialog },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: { get: () => '1' } } } },

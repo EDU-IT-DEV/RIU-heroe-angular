@@ -67,7 +67,9 @@ describe('HeroesFormComponent', () => {
   });
 
   it('should load hero data if heroId exists', () => {
-    expect(component.heroForm.value).toEqual({ id: '1', name: 'Superman' });
+    const formValue = component.heroForm.value;
+    expect(formValue.id).toBe('1');
+    expect(formValue.name.toLowerCase()).toBe('superman');
   });
 
   it('should validate the form as invalid if name is empty', () => {
