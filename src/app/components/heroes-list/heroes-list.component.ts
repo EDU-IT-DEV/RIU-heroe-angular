@@ -7,10 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-heroes-list',
@@ -25,18 +27,25 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatPaginatorModule,
     RouterLink,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ]
 })
 export class HeroesListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'actions'];
   heroes = signal<Hero[]>([]);
+  paginatedHeroes = signal<Hero[]>([]);
   searchForm: FormGroup;
+
+  pageSize = 10;
+  pageIndex = 0;
 
   constructor(
     private heroesService: HeroesService,
     private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.searchForm = this.fb.group({
       searchTerm: ['']
@@ -53,6 +62,7 @@ export class HeroesListComponent implements OnInit {
       if (trimmedTerm) {
         this.heroesService.searchHeroes(trimmedTerm).subscribe(data => {
           this.heroes.set(data);
+          this.updatePaginatedHeroes();
         });
       } else {
         this.fetchHeroes();
@@ -63,7 +73,20 @@ export class HeroesListComponent implements OnInit {
   fetchHeroes(): void {
     this.heroesService.getHeroes().subscribe(data => {
       this.heroes.set(data);
+      this.updatePaginatedHeroes();
     });
+  }
+
+  updatePaginatedHeroes(): void {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedHeroes.set(this.heroes().slice(startIndex, endIndex));
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePaginatedHeroes();
   }
 
   deleteHero(id: string): void {
