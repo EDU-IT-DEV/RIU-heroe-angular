@@ -189,4 +189,25 @@ describe('HeroesFormComponent', () => {
       errorMessage
     );
   });
+
+  it('should prevent default and stop propagation when event is provided', () => {
+    const preventDefaultSpy = jasmine.createSpy('preventDefault');
+    const stopPropagationSpy = jasmine.createSpy('stopPropagation');
+
+    const eventMock = {
+      preventDefault: preventDefaultSpy,
+      stopPropagation: stopPropagationSpy,
+    } as unknown as Event;
+
+    component.heroId = null;
+    component.heroForm.get('name')?.setValue('Hero Test');
+
+    mockHeroesService.addHero.and.returnValue(of({ id: '5', name: 'Hero Test' }));
+
+    component.saveHero(eventMock);
+
+    expect(preventDefaultSpy).toHaveBeenCalled();
+    expect(stopPropagationSpy).toHaveBeenCalled();
+    expect(mockHeroesService.addHero).toHaveBeenCalled();
+  });
 });
