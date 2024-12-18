@@ -1,3 +1,37 @@
-<p>
-  heroes-form works!
-</p>
+<div class="p-4">
+  <h2>{{ heroId ? 'Editar Héroe' : 'Añadir Héroe' }}</h2>
+
+  <form [formGroup]="heroForm" (ngSubmit)="saveHero()" class="hero-form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nombre del Héroe</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Escribe el nombre"
+        required
+      />
+      <mat-error *ngIf="heroForm.get('name')?.hasError('required')">
+        El nombre es obligatorio.
+      </mat-error>
+      <mat-error *ngIf="heroForm.get('name')?.hasError('minlength')">
+        El nombre debe tener al menos 3 caracteres.
+      </mat-error>
+      <mat-error *ngIf="heroForm.get('name')?.hasError('maxlength')">
+        El nombre no debe superar los 50 caracteres.
+      </mat-error>
+      <mat-error *ngIf="heroForm.get('name')?.hasError('pattern')">
+        El nombre no puede contener caracteres especiales.
+      </mat-error>
+    </mat-form-field>
+
+
+    <div class="form-buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
+        {{ heroId ? 'Guardar' : 'Añadir' }}
+      </button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
