@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { ConfirmationDialog } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-heroes-list',
@@ -90,6 +91,15 @@ export class HeroesListComponent implements OnInit {
   }
 
   deleteHero(id: string): void {
-    this.heroesService.deleteHero(id).subscribe(() => this.fetchHeroes());
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      width: '300px',
+      data: { message: '¿Seguro que quieres borrar este héroe?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.heroesService.deleteHero(id).subscribe(() => this.fetchHeroes());
+      }
+    });
   }
 }
