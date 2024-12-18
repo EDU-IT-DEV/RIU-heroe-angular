@@ -67,7 +67,12 @@ export class HeroesFormComponent implements OnInit {
     }
   }
 
-  saveHero(): void {
+  saveHero(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     const hero: Hero = this.heroForm.value;
     if (this.heroId) {
       this.heroesService.updateHero(hero).subscribe({

@@ -1,7 +1,7 @@
 <div class="p-4">
   <h2>{{ heroId ? 'Editar Héroe' : 'Añadir Héroe' }}</h2>
 
-  <form [formGroup]="heroForm" (ngSubmit)="saveHero()" class="hero-form">
+  <form [formGroup]="heroForm" class="hero-form">
     <mat-form-field appearance="outline" class="form-field uppercase">
       <mat-label>Nombre del Héroe</mat-label>
       <input
@@ -25,7 +25,7 @@
     </mat-form-field>
 
     <div class="form-buttons">
-      <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
+      <button mat-raised-button color="primary" type="button" (click)="saveHero($event)" [disabled]="heroForm.invalid">
         {{ heroId ? 'Guardar' : 'Añadir' }}
       </button>
       <button mat-raised-button color="warn" type="button" (click)="cancel()">
