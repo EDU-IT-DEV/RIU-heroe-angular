@@ -23,8 +23,8 @@ describe('UppercaseDirective', () => {
   it('should convert text to uppercase when typing', () => {
     inputElement.focus();
     inputElement.value = 'superman';
-    const event = new Event('input', { bubbles: true });
-    inputElement.dispatchEvent(event);
+
+    directive.onInput(new Event('input'));
 
     expect(inputElement.value).toBe('SUPERMAN');
   });
@@ -56,5 +56,22 @@ describe('UppercaseDirective', () => {
     inputElement.dispatchEvent(event);
 
     expect(inputElement.value).toBe('');
+  });
+
+  it('should fallback to nativeElement if event.target is null', () => {
+    inputElement.value = 'fallback';
+    directive.onInput({ target: null } as unknown as Event);
+
+    expect(inputElement.value).toBe('FALLBACK');
+  });
+
+  it('should handle null selectionStart and selectionEnd', () => {
+    spyOnProperty(inputElement, 'selectionStart', 'get').and.returnValue(null);
+    spyOnProperty(inputElement, 'selectionEnd', 'get').and.returnValue(null);
+
+    inputElement.value = 'nullcase';
+    directive.onInput(new Event('input'));
+
+    expect(inputElement.value).toBe('NULLCASE');
   });
 });
