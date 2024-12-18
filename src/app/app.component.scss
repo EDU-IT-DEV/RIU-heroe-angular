@@ -1,18 +1,74 @@
 .app-container {
-  text-align: center;
-  margin: 20px;
-  position: relative;
-}
-
-.loading-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(103, 99, 99, 0.468);
-  z-index: 1000;
+  margin: 20px;
+  text-align: center;
+  position: relative;
+  font-family: Arial, sans-serif;
+
+  .app-header {
+    background-color: #2f2e7d;
+    color: #ffffff;
+    width: 100%;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .app-nav {
+      margin-top: 0.5rem;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #777696;
+          border-bottom: 2px solid #5c5a96;
+        }
+      }
+    }
+  }
+
+  .app-main {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 1rem;
+  }
+
+  .loading-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      color: #ffffff;
+      font-size: 1.2rem;
+
+      mat-progress-spinner {
+        color: #81c784;
+      }
+    }
+  }
 }
