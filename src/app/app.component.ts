@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { LoadingService } from './services/loading.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  selector: 'app-root',
+  imports: [CommonModule, RouterOutlet, MatProgressSpinnerModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'riu-hereo-angular';
+  isLoading = computed(() => this.loadingService.loading());
+  constructor(private loadingService: LoadingService) {}
 }

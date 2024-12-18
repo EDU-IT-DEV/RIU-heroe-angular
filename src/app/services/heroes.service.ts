@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Hero } from '../components/models/hero.model';
+import { Hero } from '../models/hero.model';
 import { environment } from '../app.config';
 
 @Injectable({
