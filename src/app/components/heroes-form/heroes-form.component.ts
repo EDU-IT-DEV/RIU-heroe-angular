@@ -78,6 +78,9 @@ export class HeroesFormComponent implements OnInit {
     }
 
     const hero: Hero = this.heroForm.value;
+
+    hero.name = hero.name.toUpperCase();
+
     if (this.heroId) {
       this.heroesService.updateHero(hero).subscribe({
         next: () => this.router.navigate(['/']),
