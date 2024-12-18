@@ -12,6 +12,7 @@ import { Hero } from '../../models/hero.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { HeroUppercasePipe } from '../../pipes/hero-uppercase.pipe';
 
 @Component({
   selector: 'app-heroes-form',
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    HeroUppercasePipe,
   ],
   templateUrl: './heroes-form.component.html',
   styleUrls: ['./heroes-form.component.scss'],

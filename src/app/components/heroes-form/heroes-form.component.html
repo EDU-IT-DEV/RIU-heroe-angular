@@ -2,7 +2,7 @@
   <h2>{{ heroId ? 'Editar Héroe' : 'Añadir Héroe' }}</h2>
 
   <form [formGroup]="heroForm" (ngSubmit)="saveHero()" class="hero-form">
-    <mat-form-field appearance="outline" class="form-field">
+    <mat-form-field appearance="outline" class="form-field uppercase">
       <mat-label>Nombre del Héroe</mat-label>
       <input
         matInput
@@ -23,7 +23,6 @@
         El nombre no puede contener caracteres especiales.
       </mat-error>
     </mat-form-field>
-
 
     <div class="form-buttons">
       <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
