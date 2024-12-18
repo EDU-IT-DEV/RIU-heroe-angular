@@ -1,4 +1,13 @@
 <div class="app-container">
-  <h1>Lista de Héroes</h1>
+  <div *ngIf="isLoading()">
+    <div class="loading-container" *ngIf="isLoading()">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </div>
+  <h1>Colección de Héroes</h1>
+  <nav>
+    <a routerLink="/" routerLinkActive="active">Lista de Héroes</a>
+    <a routerLink="/add" routerLinkActive="active">Agregar Héroe</a>
+  </nav>
   <router-outlet></router-outlet>
 </div>
